@@ -17,21 +17,43 @@ describe 'tinyprofiler', ->
     describe 'execSync', ->
       it 'calls the function synchronously', ->
         called = no
-        req.execSync 'foobar', -> called = yes
+        start = new Date
+        middle = no
+        req.execSync 'foobar', ->
+          called = yes
+          middle = new Date
+        stop = new Date
+
         called.should.be.true
+
         foobarCalls = req.getProfile 'foobar'
         foobarCalls.length.should.equal 1
-        foobarCalls[0].start.should.exist
-        foobarCalls[0].stop.should.exist
+        call = foobarCalls[0]
+
+        call.start.should.be.least start
+        call.start.should.be.most middle
+        call.stop.should.be.least middle
+        call.stop.should.be.most stop
+        call.start.should.be.most stop
 
     describe 'execAsync', ->
       it 'calls the function asynchronously', ->
         called = no
+        start = new Date
         req.execAsync 'foobar', (done) ->
           called = yes
           done()
+          stop = new Date
+
           foobarCalls = req.getProfile 'foobar'
           foobarCalls.length.should.equal 1
-          foobarCalls[0].start.should.exist
-          foobarCalls[0].stop.should.exist
+          call = foobarCalls[0]
+
+          call.start.should.be.least start
+          call.start.should.be.most middle
+          call.stop.should.be.least middle
+          call.stop.should.be.most stop
+          call.start.should.be.most stop
+
         called.should.be.false
+        middle = new Date
