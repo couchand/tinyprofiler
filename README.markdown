@@ -89,12 +89,13 @@ the recursive data structure has the following properties:
   * `end`: the finish time of the step
   * `steps`: any child steps [optional]
 
-all timings are in the format of `process.hrtime()`, an array of
-integers - the first is the number of seconds elapsed since the start
-of the root, and the second is the number of nanoseconds.
+all timings are relative to the start time of the root, and are
+recorded in the format of `process.hrtime()`. each timing is a pair
+of integers - the first the number of seconds since the start of the
+root, and the second the number of nanoseconds.
 
 the `start` entry for the root has an iso date string representing
-the start time of the profile.
+the start time of the entire profile.
 
 ###api methods###
 
