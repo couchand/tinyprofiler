@@ -7,7 +7,7 @@ strongly influenced by [MiniProfiler][0]
  * introduction
  * getting started
  * faq
- * api documentation
+ * documentation
 
 introduction
 ------------
@@ -44,8 +44,63 @@ More broadly, the data model for MiniProfiler doesn't really adapt
 to the async-by-default nature of born-on-the-web JavaScript.
 *tinyprofiler* offers explicit synchronous and asynchronous APIs.
 
-api documentation
------------------
+documentation
+-------------
+
+ * data structure
+ * api methods
+ * express middleware
+
+###data structure###
+
+```json
+{
+  "id": "jZKO20skdk0983sF",
+  "name": "GET /users/1234",
+  "start": "1972-06-15T12:38:43Z",
+  "end": [0, 270261496],
+  "steps": [
+    {
+      "name": "query Users",
+      "start": [0, 49920582],
+      "end": [0, 101885726]
+    },
+    {
+      "name": "send results",
+      "start": [0, 163945603],
+      "end": [0, 256993038],
+      "steps": [
+        {
+          "name": "format user",
+          "start": [0, 198373405],
+          "end": [0, 237504993]
+        }
+      ]
+    }
+  ]
+}
+```
+
+the recursive data structure has the following properties:
+
+  * `id`: a guid for the request [root only]
+  * `name`: the name of the step
+  * `start`: the start time of the step [iso date on root]
+  * `end`: the finish time of the step
+  * `steps`: any child steps [optional]
+
+all timings are in the format of `process.hrtime()`, an array of
+integers - the first is the number of seconds elapsed since the start
+of the root, and the second is the number of nanoseconds.
+
+the `start` entry for the root has an iso date string representing
+the start time of the profile.
+
+###api methods###
+
+*soon*
+
+###express middleware###
 
 *forthcoming*
 
