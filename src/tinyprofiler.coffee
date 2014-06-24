@@ -1,6 +1,7 @@
 # tinyprofiler
 
 diff = now = process.hrtime or require 'browser-process-hrtime'
+guid = require './guid'
 
 class TinyProfiler
   constructor: ->
@@ -62,11 +63,13 @@ class Profiler
 
 class RequestProfiler extends Profiler
   constructor: (req) ->
+    @_id = guid()
     @_begin = new Date()
     super null, "#{req.method} #{req.path}"
 
   toJSON: ->
     me = super()
+    me.id = @_id
     me.start = @_begin.toISOString()
     me
 
