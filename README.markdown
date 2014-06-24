@@ -85,6 +85,7 @@ the recursive data structure has the following properties:
 
   * `id`: a guid for the request [root only]
   * `name`: the name of the step
+  * `details`: additional information [optional]
   * `start`: the start time of the step [iso date on root]
   * `end`: the finish time of the step
   * `steps`: any child steps [optional]

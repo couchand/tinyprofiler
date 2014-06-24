@@ -13,54 +13,66 @@ class TinyProfiler
 
   getRequests: ->
     @_requests.map (request) ->
-      request.getCalls()
+      request.toJSON()
 
   middleware: (req, res, next) =>
     req.profiler = @request req
     next()
-    req.profiler.complete()
+    req.profiler.end()
 
-class RequestProfiler
+class Profiler
+  constructor: (parent_baseline, @_name, @_details) ->
+    @_baseline = now()
+    @_steps = []
+    @_start = diff parent_baseline or @_baseline
+
+  end: ->
+    @_stop = diff @_baseline
+
+  step: (name, details, cb) ->
+    if typeof name is 'function'
+      cb = name
+      name = details
+      details = null
+    else if typeof details is 'function'
+      cb = details
+      details = null
+
+    step = new Profiler @_baseline, name, details
+    @_steps.push step
+    cb step if cb
+    step
+
+  stepSync: ->
+    step = @step.apply this, arguments
+    step.end()
+
+  steps: ->
+    @_steps.slice()
+
+  toJSON: ->
+    me =
+      name: @_name
+      start: @_start
+    me.details = @_details if @_details
+    me.end = @_stop if @_stop
+    if @_steps.length
+      me.steps = @_steps.map (step) -> step.toJSON()
+    me
+
+class RequestProfiler extends Profiler
   constructor: (req) ->
     @_begin = new Date()
-    @_start = now()
-    @_profile = {}
+    super null, "#{req.method} #{req.path}"
 
-  complete: ->
-    @_complete = diff @_start
-
-  execSync: (name, fn) ->
-    times = _start: diff @_start
-    fn()
-    times._stop = diff @_start
-
-    @_profile[name] ?= []
-    @_profile[name] = @_profile[name].concat [times]
-
-  execAsync: (name, fn) ->
-    times = _start: diff @_start
-    fn =>
-      times._stop = diff @_start
-
-      @_profile[name] ?= []
-      @_profile[name] = @_profile[name].concat [times]
-
-  getProfile: (name) ->
-    if name
-      @_profile[name] or []
-    else
-      []
-
-  getCalls: ->
-    calls = {}
-    for name, counts of @_profile
-      calls[name] = counts.slice()
-    calls._requestBegin = @_begin.toISOString()
-    calls._requestComplete = @_complete
-    calls
+  toJSON: ->
+    me = super()
+    me.start = @_begin.toISOString()
+    me
 
 tinyprofiler = -> new TinyProfiler
 
 tinyprofiler.RequestProfiler = RequestProfiler
+tinyprofiler.Profiler = Profiler
 
 module.exports = tinyprofiler

@@ -15,8 +15,8 @@ describe "a sync profiled request", ->
     app = express()
     app.use profiler.middleware
     app.get '/', (req, res) ->
-      req.profiler.execSync 'root', ->
-        req.profiler.execSync 'send', ->
+      req.profiler.stepSync 'root', (step) ->
+        step.stepSync 'send', ->
           res.send 'foobar'
     server = http.createServer app
       .listen 77637
@@ -32,17 +32,25 @@ describe "a sync profiled request", ->
         requests.length.should.equal 1
         request = requests[0]
 
-        request.should.have.property 'root'
-        request.root.length.should.equal 1
-        request.root[0].should.have.property '_start'
-        request.root[0].should.have.property '_stop'
+        request.should.have.property 'name'
+        request.name.should.match /^GET/
+        request.should.have.property 'start'
+        request.should.have.property 'end'
 
-        request.should.have.property 'send'
-        request.send.length.should.equal 1
-        request.send[0].should.have.property '_start'
-        request.send[0].should.have.property '_stop'
+        request.should.have.property 'steps'
+        request.steps.length.should.equal 1
+        root = request.steps[0]
 
-        request.should.have.property '_requestBegin'
-        request._requestBegin.should.be.within start, finish
+        root.should.have.property 'name'
+        root.name.should.equal 'root'
+        root.should.have.property 'start'
+        root.should.have.property 'end'
 
-        request.should.have.property '_requestComplete'
+        root.should.have.property 'steps'
+        root.steps.length.should.equal 1
+        send = root.steps[0]
+
+        send.should.have.property 'name'
+        send.name.should.equal 'send'
+        send.should.have.property 'start'
+        send.should.have.property 'end'
