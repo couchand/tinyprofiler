@@ -69,8 +69,8 @@ documentation
       "steps": [
         {
           "name": "format user",
-          "start": [0, 198373405],
-          "end": [0, 237504993]
+          "start": [0, 28373405],
+          "end": [0, 77504993]
         }
       ]
     }
@@ -87,10 +87,10 @@ the recursive data structure has the following properties:
   * `end`: the finish time of the step
   * `steps`: any child steps [optional]
 
-all timings are relative to the start time of the root, and are
+all timings are relative to the start time of their parent, and are
 recorded in the format of `process.hrtime()`. each timing is a pair
 of integers - the first the number of seconds since the start of the
-root, and the second the number of nanoseconds.
+parent, and the second the number of nanoseconds.
 
 the `start` entry for the root has an iso date string representing
 the start time of the entire profile.
