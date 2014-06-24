@@ -34,14 +34,11 @@ describe 'tinyprofiler', ->
       req.should.be.an.instanceof tinyprofiler.RequestProfiler
 
     describe 'execSync', ->
-      it 'calls the function synchronously', ->
+      it 'times the function synchronously', ->
         req = profiler.request {}
-        called = no
         start = process.hrtime()
         req.execSync 'foobar', ->
-          called = yes
         stop = process.hrtime start
-        called.should.be.true
 
         foobarCalls = req.getProfile 'foobar'
         foobarCalls.length.should.equal 1
@@ -52,12 +49,10 @@ describe 'tinyprofiler', ->
         call._start.should.be.at.most call._stop
 
     describe 'execAsync', ->
-      it 'calls the function asynchronously', ->
+      it 'times the function asynchronously', ->
         req = profiler.request {}
-        called = no
         start = process.hrtime()
         req.execAsync 'foobar', (done) ->
-          called = yes
           done()
           stop = process.hrtime()
 
@@ -68,5 +63,3 @@ describe 'tinyprofiler', ->
           call._start.should.be.at.least [0, 0]
           call._stop.should.be.at.most stop
           call._start.should.be.at.most call._stop
-
-        called.should.be.false

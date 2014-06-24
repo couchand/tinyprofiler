@@ -39,12 +39,11 @@ class RequestProfiler
 
   execAsync: (name, fn) ->
     times = _start: diff @_start
-    setTimeout =>
-      fn =>
-        times._stop = diff @_start
+    fn =>
+      times._stop = diff @_start
 
-        @_profile[name] ?= []
-        @_profile[name] = @_profile[name].concat [times]
+      @_profile[name] ?= []
+      @_profile[name] = @_profile[name].concat [times]
 
   getProfile: (name) ->
     if name
