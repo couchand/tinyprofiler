@@ -18,14 +18,11 @@ by MiniProfiler but adapted to the asynchronous nature of JavaScript.
 getting started
 ---------------
 
-When published in npm you'll be able to issue:
+If you have node.js and npm set up, install with:
 
 ```bash
 > npm install --save tinyprofiler
 ```
-
-For the time being, build tinyprofiler and copy the library into
-your project manually.
 
 Mount `profiler.middleware` as the first middleware on your stack.
 
