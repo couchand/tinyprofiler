@@ -132,5 +132,17 @@ describe 'Profiler', ->
   describe 'toJSON', ->
     it 'returns the tinyprofiler data structure', ->
       profile = new tinyprofiler.Profiler()
+      step = profile.step 'Foobar'
+      step.end()
+      profile.end()
 
-      profile.step 'Foobar'
+      json = profile.toJSON()
+
+      json.should.have.property 'start'
+      json.should.have.property 'end'
+      json.should.have.property 'steps'
+      json.steps.length.should.equal 1
+
+      json.steps[0].should.have.property 'name'
+      json.steps[0].should.have.property 'start'
+      json.steps[0].should.have.property 'end'
