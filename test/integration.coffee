@@ -7,8 +7,6 @@ express = require 'express'
 http = require 'http'
 
 tinyprofiler = require '../src/tinyprofiler'
-#it = describe = (d, f) -> f()
-#beforeEach = (f) -> f()
 
 describe "a sync profiled request", ->
   profiler = beforeEach -> profiler = tinyprofiler()
