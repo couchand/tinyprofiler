@@ -40,7 +40,7 @@ class Profiler
     me.details = @_details if @_details
     me.end = @_stop if @_stop
     if @_steps.length
-      me.steps = @_steps.map (step) -> step.toJSON()
+      me.steps = (step.toJSON() for step in @_steps)
     me
 
 module.exports = Profiler

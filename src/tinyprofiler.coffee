@@ -13,8 +13,7 @@ class TinyProfiler
     r
 
   getRequests: ->
-    @_requests.map (request) ->
-      request.toJSON()
+    (request.toJSON() for request in @_requests)
 
   middleware: (req, res, next) =>
     req.profiler = @request req
