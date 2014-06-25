@@ -10,6 +10,9 @@ class RequestProfiler extends Profiler
     @_begin = new Date()
     super null, "#{req.method} #{req.path}"
 
+  getId: ->
+    @_id
+
   toJSON: ->
     me = super()
     me.id = @_id
