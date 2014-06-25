@@ -5,11 +5,22 @@ fs = require 'fs'
 
 {spawn} = require 'child_process'
 
+dirs = ['src', 'src/middleware']
+
 build = (cb) ->
   console.log "building..."
-  files = fs.readdirSync 'src'
-  files = ('src/' + file for file in files when file.match(/\.(lit)?coffee$/))
-  run ['-c', '-o', 'lib'].concat(files), cb
+
+  left = dirs.length
+  check = ->
+    cb() if  typeof cb is 'function' and 0 is left -= 1
+
+  buildDir dir, check for dir in dirs
+
+buildDir = (dir, cb) ->
+  outdir = "lib" + dir[3..]
+  files = fs.readdirSync dir
+  coffeefiles = ("#{dir}/#{file}" for file in files when file.match(/\.(lit)?coffee$/))
+  run ['-c', '-o', outdir].concat(coffeefiles), cb
 
 run = (args, cb) ->
   proc = spawn 'coffee', args
