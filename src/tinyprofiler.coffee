@@ -5,11 +5,11 @@ Profiler = require './profiler'
 RequestProfiler = require './request-profiler'
 
 class TinyProfiler
-  constructor: ->
+  constructor: (@options) ->
     @_requests = []
 
   request: (req) ->
-    r = new RequestProfiler req
+    r = new RequestProfiler req, @options
     @_requests.push r
     r
 

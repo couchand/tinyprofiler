@@ -1,14 +1,25 @@
 # request profiler
 
+xtend = require 'xtend'
+
 {diff, now} = require './time'
 guid = require './guid'
 Profiler = require './profiler'
 
+defaults =
+  requestName: (req) -> "#{req.method} #{req.path}"
+  requestDetails: ->
+
 class RequestProfiler extends Profiler
-  constructor: (req) ->
+  constructor: (req, opts) ->
     @_id = guid()
     @_begin = new Date()
-    super null, "#{req.method} #{req.path}"
+
+    options = xtend {}, defaults, opts
+    name = options.requestName req
+    details = options.requestDetails req
+
+    super null, name, details
 
   getId: ->
     @_id
