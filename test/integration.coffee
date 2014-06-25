@@ -6,7 +6,7 @@ chai.should()
 express = require 'express'
 http = require 'http'
 
-tinyprofiler = require '../src/tinyprofiler'
+tinyprofiler = require '../src'
 
 describe "a sync profiled request", ->
   profiler = beforeEach -> profiler = tinyprofiler profileResponse: no

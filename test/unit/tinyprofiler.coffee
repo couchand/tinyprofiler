@@ -2,7 +2,7 @@
 
 require '../helper'
 
-tinyprofiler = require '../../src/tinyprofiler'
+tinyprofiler = require '../../src'
 
 describe 'tinyprofiler', ->
   profiler = beforeEach -> profiler = tinyprofiler()

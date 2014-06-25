@@ -1,7 +1,6 @@
 # tinyprofiler
 
 middleware = require './middleware'
-Profiler = require './profiler'
 RequestProfiler = require './request-profiler'
 
 class TinyProfiler
@@ -19,9 +18,4 @@ class TinyProfiler
   middleware: ->
     middleware this, @options
 
-tinyprofiler = -> new TinyProfiler
-
-tinyprofiler.RequestProfiler = RequestProfiler
-tinyprofiler.Profiler = Profiler
-
-module.exports = tinyprofiler
+module.exports = TinyProfiler

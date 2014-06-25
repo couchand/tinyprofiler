@@ -2,7 +2,7 @@
 
 helper = require '../helper'
 
-tinyprofiler = require '../../src/tinyprofiler'
+tinyprofiler = require '../../src'
 
 describe 'RequestProfiler', ->
   describe 'getId', ->

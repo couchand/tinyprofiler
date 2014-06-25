@@ -2,7 +2,7 @@
 
 require '../helper'
 
-tinyprofiler = require '../../src/tinyprofiler'
+tinyprofiler = require '../../src'
 
 describe 'Profiler', ->
   describe '_baseline', ->
