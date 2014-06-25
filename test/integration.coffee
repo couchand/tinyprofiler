@@ -35,7 +35,7 @@ describe "a sync profiled request", ->
         request.should.have.property 'name'
         request.name.should.match /^GET/
         request.should.have.property 'start'
-        request.should.have.property 'end'
+        request.should.have.property 'length'
 
         request.should.have.property 'steps'
         request.steps.length.should.equal 1
@@ -44,7 +44,7 @@ describe "a sync profiled request", ->
         root.should.have.property 'name'
         root.name.should.equal 'root'
         root.should.have.property 'start'
-        root.should.have.property 'end'
+        root.should.have.property 'length'
 
         root.should.have.property 'steps'
         root.steps.length.should.equal 1
@@ -53,4 +53,4 @@ describe "a sync profiled request", ->
         send.should.have.property 'name'
         send.name.should.equal 'send'
         send.should.have.property 'start'
-        send.should.have.property 'end'
+        send.should.have.property 'length'

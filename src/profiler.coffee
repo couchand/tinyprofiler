@@ -10,7 +10,7 @@ class Profiler
     @_start = diff parent_baseline or @_baseline
 
   end: ->
-    @_stop = diff @_baseline
+    @_length = diff @_baseline
 
   step: (name, details, cb) ->
     if typeof name is 'function'
@@ -38,7 +38,7 @@ class Profiler
       name: @_name
       start: @_start
     me.details = @_details if @_details
-    me.end = @_stop if @_stop
+    me.length = @_length if @_length
     if @_steps.length
       me.steps = (step.toJSON() for step in @_steps)
     me

@@ -32,15 +32,15 @@ describe 'Profiler', ->
       profile._start.should.be.at.most stop
 
   describe 'end', ->
-    it 'sets _stop', ->
+    it 'sets _length', ->
       profile = new tinyprofiler.Profiler()
 
       start = process.hrtime profile._baseline
       profile.end()
       stop = process.hrtime profile._baseline
 
-      profile._stop.should.be.at.least start
-      profile._stop.should.be.at.most stop
+      profile._length.should.be.at.least start
+      profile._length.should.be.at.most stop
 
   describe 'step', ->
     it 'returns a Profiler', ->
@@ -102,10 +102,10 @@ describe 'Profiler', ->
       json = profile.toJSON()
 
       json.should.have.property 'start'
-      json.should.have.property 'end'
+      json.should.have.property 'length'
       json.should.have.property 'steps'
       json.steps.length.should.equal 1
 
       json.steps[0].should.have.property 'name'
       json.steps[0].should.have.property 'start'
-      json.steps[0].should.have.property 'end'
+      json.steps[0].should.have.property 'length'

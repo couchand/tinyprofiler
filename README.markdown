@@ -55,22 +55,22 @@ documentation
   "id": "jZKO20skdk0983sF",
   "name": "GET /users/1234",
   "start": "1972-06-15T12:38:43Z",
-  "end": [0, 270261496],
+  "length": [0, 270261496],
   "steps": [
     {
       "name": "query Users",
       "start": [0, 49920582],
-      "end": [0, 101885726]
+      "length": [0, 101885726]
     },
     {
       "name": "send results",
       "start": [0, 163945603],
-      "end": [0, 256993038],
+      "length": [0, 256993038],
       "steps": [
         {
           "name": "format user",
           "start": [0, 28373405],
-          "end": [0, 77504993]
+          "length": [0, 77504993]
         }
       ]
     }
@@ -84,7 +84,7 @@ the recursive data structure has the following properties:
   * `name`: the name of the step
   * `details`: additional information [optional]
   * `start`: the start time of the step [iso date on root]
-  * `end`: the finish time of the step
+  * `length`: the finish time of the step
   * `steps`: any child steps [optional]
 
 all timings are relative to the start time of their parent, and are
