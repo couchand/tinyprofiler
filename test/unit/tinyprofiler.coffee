@@ -16,6 +16,6 @@ describe 'tinyprofiler', ->
     it 'gets a RequestProfiler by id', ->
       req = profiler.request {}
 
-      result = profiler.getById req.id
+      result = profiler.getById req.getId()
 
       result.should.equal req
