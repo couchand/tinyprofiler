@@ -3,8 +3,6 @@
 onHeaders = require 'on-headers'
 xtend = require 'xtend'
 
-RequestProfiler = require '../request-profiler'
-
 defaults =
   headerName: "X-TinyProfiler-Ids"
   profilerKey: "profiler"

@@ -12,6 +12,11 @@ class TinyProfiler
     @_requests.push r
     r
 
+  getById: (id) ->
+    for r in @_requests when id is r.getId()
+      return r
+    return null
+
   getRequests: ->
     (request.toJSON() for request in @_requests)
 
