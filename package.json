@@ -11,6 +11,10 @@
     "client",
     "server"
   ],
+  "dependencies": {
+    "on-headers": "0.0.0",
+    "xtend": "~3.0.0"
+  },
   "devDependencies": {
     "chai": "~1.9.1",
     "mocha": "~1.18.2",

@@ -1,5 +1,6 @@
 # tinyprofiler
 
+middleware = require './middleware'
 Profiler = require './profiler'
 RequestProfiler = require './request-profiler'
 
@@ -15,10 +16,8 @@ class TinyProfiler
   getRequests: ->
     (request.toJSON() for request in @_requests)
 
-  middleware: (req, res, next) =>
-    req.profiler = @request req
-    next()
-    req.profiler.end()
+  middleware: ->
+    middleware this, @options
 
 tinyprofiler = -> new TinyProfiler
 

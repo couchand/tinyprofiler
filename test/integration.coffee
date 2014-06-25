@@ -9,11 +9,11 @@ http = require 'http'
 tinyprofiler = require '../src/tinyprofiler'
 
 describe "a sync profiled request", ->
-  profiler = beforeEach -> profiler = tinyprofiler()
+  profiler = beforeEach -> profiler = tinyprofiler profileResponse: no
 
   it "stores the profile", ->
     app = express()
-    app.use profiler.middleware
+    app.use profiler.middleware()
     app.get '/', (req, res) ->
       req.profiler.stepSync 'root', (step) ->
         step.stepSync 'send', ->
