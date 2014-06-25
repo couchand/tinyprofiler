@@ -23,4 +23,7 @@ class TinyProfiler
   profilingMiddleware: ->
     middleware.profiling this, @options
 
+  resourceMiddleware: ->
+    middleware.resource this, @options
+
 module.exports = TinyProfiler
