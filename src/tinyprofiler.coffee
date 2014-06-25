@@ -15,7 +15,7 @@ class TinyProfiler
   getRequests: ->
     (request.toJSON() for request in @_requests)
 
-  middleware: ->
-    middleware this, @options
+  profilingMiddleware: ->
+    middleware.profiling this, @options
 
 module.exports = TinyProfiler

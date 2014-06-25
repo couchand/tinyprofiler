@@ -13,7 +13,7 @@ describe "a sync profiled request", ->
 
   it "stores the profile", ->
     app = express()
-    app.use profiler.middleware()
+    app.use profiler.profilingMiddleware()
     app.get '/', (req, res) ->
       req.profiler.stepSync 'root', (step) ->
         step.stepSync 'send', ->

@@ -1,9 +1,9 @@
-# connect middleware
+# connect profiling middleware
 
 onHeaders = require 'on-headers'
 xtend = require 'xtend'
 
-RequestProfiler = require './request-profiler'
+RequestProfiler = require '../request-profiler'
 
 defaults =
   headerName: "X-TinyProfiler-Ids"
