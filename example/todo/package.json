@@ -1,0 +1,18 @@
+{
+  "name": "todo-example",
+  "version": "0.0.0",
+  "description": "a simple example of the use of tinyprofiler",
+  "author": "Andrew Couch <tinyprofiler@andrewcou.ch>",
+  "license": "MIT",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.4.5",
+    "superagent": "~0.18.0",
+    "tinyprofiler-client": "~0.0.1",
+    "tinyprofiler-react": "~0.0.0"
+  },
+  "devDependencies": {
+    "browserify": "~4.2.0",
+    "coffeeify": "~0.6.0"
+  }
+}
