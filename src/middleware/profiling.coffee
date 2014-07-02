@@ -17,7 +17,7 @@ module.exports = (tp, opts)->
     responseStep = no
     onHeaders res, ->
       return if @getHeader options.headerName
-      @setHeader options.headerName, "[#{profiler.getId()}]"
+      @setHeader options.headerName, JSON.stringify [profiler.getId()]
 
       return unless options.profileResponse
       responseStep = profiler.step "Response"
