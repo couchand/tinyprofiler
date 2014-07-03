@@ -5,6 +5,9 @@
   "author": "Andrew Couch <tinyprofiler@andrewcou.ch>",
   "license": "MIT",
   "main": "server.js",
+  "scripts": {
+    "build": "./node_modules/browserify/bin/cmd.js client.coffee -t coffeeify --extension '.coffee' > client.js"
+  },
   "dependencies": {
     "express": "~4.4.5",
     "superagent": "~0.18.0",
