@@ -25,6 +25,8 @@ If you have node.js and npm set up, install with:
 ```
 
 Mount `profiler.middleware` as the first middleware on your stack.
+If you'd also like to view the profiler results in the browser, take
+a look at [tinyprofiler-client][1].
 
 faq
 ---
@@ -103,4 +105,7 @@ the start time of the entire profile.
 
 *forthcoming*
 
+##### ╭╮☲☲☲╭╮ #####
+
 [0]: https://github.com/MiniProfiler
+[1]: https://github.com/couchand/tinyprofiler-client
