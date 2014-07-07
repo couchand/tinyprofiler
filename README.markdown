@@ -46,11 +46,12 @@ to the async-by-default nature of born-on-the-web JavaScript.
 documentation
 -------------
 
- * data structure
- * api methods
- * express middleware
+  * data structure
+  * options
+  * api methods
+  * express middleware
 
-###data structure###
+### data structure ###
 
 ```json
 {
@@ -97,11 +98,65 @@ parent, and the second the number of nanoseconds.
 the `start` entry for the root has an iso date string representing
 the start time of the entire profile.
 
-###api methods###
+### options ###
+
+*tinyprofiler* accepts a variety of configuration options.  Many of
+these are shared between client and server code, but some of them are
+only applicable to one or the other.
+
+*n.b.* the following also documents options for *tinyprofiler-client*.
+
+#### shared options ####
+
+These opitons should be identical between the client and the server.
+
+##### headerName - `"X-TinyProfiler-Ids"` #####
+
+the name of the HTTP header to use to send profile ids
+
+##### path - `"tp"` #####
+
+server path to mount *tinyprofiler* REST API
+
+##### profilerKey - `"profiler"` #####
+
+key name on request object to store request-scoped profiler
+
+#### distinct options ####
+
+These options have the same meaning on the client and server, but
+nevertheless are frequently different in the two environments.
+
+##### requestName - `(req) -> "#{req.method} #{req.path}"` #####
+
+function to build profile name from request object (method defaults
+to "AJAX" on client)
+
+##### requestDetails - `(req) ->` #####
+
+function to build profile details from request object
+
+#### server options ####
+
+##### profileResponse - `true` #####
+
+do we automatically profile the server response?
+
+#### client options ####
+
+##### monkeyPatch - `true` #####
+
+do we automatically monkey patch the XHR object?
+
+##### profileRequest - `true` #####
+
+do we automatically profile each XHR request?
+
+### api methods ###
 
 *soon*
 
-###express middleware###
+### express middleware ###
 
 *forthcoming*
 
