@@ -20,10 +20,4 @@ class TinyProfiler
   getRequests: ->
     (request.toJSON() for request in @_requests)
 
-  profilingMiddleware: ->
-    middleware.profiling this, @options
-
-  resourceMiddleware: ->
-    middleware.resource this, @options
-
 module.exports = TinyProfiler

@@ -2,6 +2,7 @@
 
 express = require 'express'
 tp = require '../../lib'
+middleware = require '../../lib/middleware'
 
 app = require './app'
 api = require './api'
@@ -9,8 +10,8 @@ api = require './api'
 server = express()
 profiler = tp()
 
-server.use '/tp', profiler.resourceMiddleware()
-server.use profiler.profilingMiddleware()
+server.use '/tp', middleware.resource profiler
+server.use middleware.profiling profiler
 server.use app()
 server.use '/api', api()
 
