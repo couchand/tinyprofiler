@@ -1,6 +1,7 @@
 # the todo app
 
 request = require 'superagent'
+tp      = require '../../lib'
 client  = require 'tinyprofiler-client'
 ui      = require 'tinyprofiler-react'
 
@@ -9,22 +10,28 @@ module.exports = app = ->
   # the items
   items = []
 
+  # create a tinyprofiler for client side profiling
+  profiler = tp requestName: (d) -> d
+
   # create a tinyprofiler client
   #   default behavior monkey patches XmlHttpRequest
-  profiles = client()
+  profiles = client profiler
 
   # use tinyprofiler-react to render client markup
-  renderProfiler = ->
-    ui.renderElement profiles, document.getElementById 'tp'
+  renderProfiler = (profile) ->
+    profile.stepSync "render profiler", ->
+      console.log JSON.stringify profiles.getRequests()
+      ui.renderElement profiles, document.getElementById 'tp'
 
   # render the list of todos
-  renderItems = ->
-    list = document.getElementById 'todos'
-    list.innerHTML = (
-      renderItem item for item in items
-    ).concat(
-      renderNewItem()
-    ).join '\n'
+  renderItems = (profile) ->
+    profile.stepSync "render items", items.length, ->
+      list = document.getElementById 'todos'
+      list.innerHTML = (
+        renderItem item for item in items
+      ).concat(
+        renderNewItem()
+      ).join '\n'
 
   # render an individual todo
   renderItem = (item) ->
@@ -58,30 +65,35 @@ module.exports = app = ->
     ->
       createTodo label.value
 
-  addHandlers = ->
-    for own i, item of document.getElementsByClassName 'item'
-      id = item.id[4..]
-      continue if id is '-new'
-      box = item.children[0]
-      label = item.children[1]
-      box.onchange = label.onblur = updateHandler id, box, label
+  addHandlers = (profile) ->
+    profile.stepSync "add handlers", ->
+      for own i, item of document.getElementsByClassName 'item'
+        id = item.id[4..]
+        continue if id is '-new'
+        box = item.children[0]
+        label = item.children[1]
+        box.onchange = label.onblur = updateHandler id, box, label
 
-    newitem = document.getElementById 'item-new'
-    newlabel = newitem.children[1]
-    newlabel.onblur = createHandler newlabel
+      newitem = document.getElementById 'item-new'
+      newlabel = newitem.children[1]
+      newlabel.onblur = createHandler newlabel
 
   # render everything
   render = ->
-    getTodos ->
-      renderItems()
-      renderProfiler()
-      addHandlers()
+    profile = profiler.request "Render"
+    getTodos profile, ->
+      renderItems profile
+      renderProfiler profile
+      addHandlers profile
+      profile.end()
 
   # get all todos
-  getTodos = (cb) ->
+  getTodos = (profile, cb) ->
+    step = profile.step "get todos"
     request
       .get '/api/todos'
       .end (err, res) ->
+        step.end()
         return console.error err if err
         items = res.body
         console.log items
