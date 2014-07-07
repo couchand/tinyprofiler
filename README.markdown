@@ -4,10 +4,14 @@ tinyprofiler
 a minimal isomorphic JavaScript profiler
 strongly influenced by [MiniProfiler][0]
 
- * introduction
- * getting started
- * faq
- * documentation
+  * [introduction](#introduction)
+  * [getting started](#getting-started)
+  * [faq](#faq)
+  * [documentation](#documentation)
+    * [data structure](#data-structure)
+    * [options](#options)
+    * [api methods](#api-methods)
+    * [express middleware](#express-middleware)
 
 introduction
 ------------
