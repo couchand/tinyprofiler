@@ -7,7 +7,10 @@ guid = require './guid'
 Profiler = require './profiler'
 
 defaults =
-  requestName: (req) -> "#{req.method} #{req.path}"
+  requestName: unless window?
+    (req) -> "#{req.method} #{req.path}"
+  else
+    (req) -> "AJAX #{req.path}"
   requestDetails: ->
 
 class RequestProfiler extends Profiler
