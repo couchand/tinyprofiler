@@ -109,3 +109,31 @@ describe 'Profiler', ->
       json.steps[0].should.have.property 'name'
       json.steps[0].should.have.property 'start'
       json.steps[0].should.have.property 'length'
+
+  describe 'events', ->
+    it 'emits "step" on step', ->
+      hasEmitted = no
+      emittedStep = no
+      profile = new tinyprofiler.Profiler()
+      profile.once "step", (step) ->
+        hasEmitted = yes
+        emittedStep = step
+
+      profile.step 'something', (step) ->
+        hasEmitted.should.be.true
+        emittedStep.should.equal step
+
+      hasEmitted.should.be.true
+
+    it 'emits "end" on end', ->
+      hasEmitted = no
+      profile = new tinyprofiler.Profiler()
+      profile.once "end", ->
+        hasEmitted = yes
+
+      profile.step 'something', ->
+        hasEmitted.should.be.false
+      hasEmitted.should.be.false
+
+      profile.end()
+      hasEmitted.should.be.true
