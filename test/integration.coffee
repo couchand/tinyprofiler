@@ -4,6 +4,7 @@ chai = require 'chai'
 chai.should()
 
 express = require 'express'
+request = require 'superagent'
 http = require 'http'
 
 tinyprofiler = require '../src'
@@ -13,6 +14,7 @@ describe "a sync profiled request", ->
 
   it "stores the profile", ->
     app = express()
+    app.use '/tp', profiler.resourceMiddleware()
     app.use profiler.profilingMiddleware()
     app.get '/', (req, res) ->
       req.profiler.stepSync 'root', (step) ->
@@ -22,15 +24,15 @@ describe "a sync profiled request", ->
       .listen 77637
 
     start = new Date().toISOString()
-    http.get 'http://localhost:77637', (res) ->
-      res.on 'data', ->
-      res.on 'end', ->
-        finish = new Date().toISOString()
+    request 'http://localhost:77637', (res) ->
+      finish = new Date().toISOString()
+
+      id = JSON.parse res.headers["x-tinyprofiler-ids"]
+
+      request "http://localhost:77637/tp/#{id[0]}", (res) ->
         server.close()
 
-        requests = profiler.getRequests()
-        requests.length.should.equal 1
-        request = requests[0]
+        request = res.body
 
         request.should.have.property 'name'
         request.name.should.match /^GET/

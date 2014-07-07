@@ -19,7 +19,8 @@
   "devDependencies": {
     "body-parser": "~1.4.3",
     "chai": "~1.9.1",
+    "express": "~4.4.4",
     "mocha": "~1.18.2",
-    "express": "~4.4.4"
+    "superagent": "~0.18.1"
   }
 }
