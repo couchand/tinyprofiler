@@ -29,9 +29,15 @@ describe "a sync profiled request", ->
     request 'http://localhost:77637', (res) ->
       finish = new Date().toISOString()
 
-      id = JSON.parse res.headers["x-tinyprofiler-ids"]
+      ids = JSON.parse res.headers["x-tinyprofiler-ids"]
+      ids.length.should.equal 1
+      id = ids[0]
 
-      request "http://localhost:77637/tp/#{id[0]}", (res) ->
+      request 'http://localhost:77637', (res) ->
+        ids = JSON.parse res.headers["x-tinyprofiler-ids"]
+        ids.length.should.equal 2
+
+      request "http://localhost:77637/tp/#{id}", (res) ->
         server.close()
 
         request = res.body

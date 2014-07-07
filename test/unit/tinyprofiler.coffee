@@ -20,6 +20,15 @@ describe 'tinyprofiler', ->
 
       result.should.equal req
 
+    it 'removes the RequestProfiler from the cache', ->
+      req = profiler.request {}
+
+      profiler.getIds().length.should.equal 1
+
+      profiler.getById req.getId()
+
+      profiler.getIds().length.should.equal 0
+
   describe 'events', ->
     it 'emits "request" on request', ->
       emitted = no

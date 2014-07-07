@@ -7,7 +7,7 @@ RequestProfiler = require './request-profiler'
 
 class TinyProfiler extends EventEmitter2
   constructor: (@options) ->
-    @_requests = []
+    @_requests = {}
 
   _attachHandlers: (req) ->
     progress = => @emit 'update', req
@@ -23,18 +23,23 @@ class TinyProfiler extends EventEmitter2
 
   request: (req) ->
     r = new RequestProfiler req, @options
-    @_requests.push r
+    @_requests[r.getId()] = r
     @_attachHandlers r
 
-    @emit 'request' ,r
+    @emit 'request', r
     r
 
+  getIds: ->
+    Object.keys @_requests
+
   getById: (id) ->
-    for r in @_requests when id is r.getId()
-      return r
-    return null
+    return null unless id of @_requests
+
+    r = @_requests[id]
+    delete @_requests[id]
+    r
 
   getRequests: ->
-    (request.toJSON() for request in @_requests)
+    (request.toJSON() for id, request of @_requests)
 
 module.exports = TinyProfiler
