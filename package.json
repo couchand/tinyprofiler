@@ -12,6 +12,7 @@
     "server"
   ],
   "dependencies": {
+    "browser-process-hrtime": "0.0.2",
     "on-headers": "0.0.0",
     "path-match": "~1.1.1",
     "xtend": "~3.0.0"
