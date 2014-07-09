@@ -29,7 +29,7 @@ module.exports = (tp, opts) ->
   (req, res, next) ->
     path = parse(req.url).pathname
     for r in routes
-      params = r.match req.path
+      params = r.match path
       return r.handle req, res, params if params
 
     next()
