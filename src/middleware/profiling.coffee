@@ -22,7 +22,8 @@ module.exports = (tp, opts)->
       return unless options.profileResponse
       responseStep = profiler.step "Response"
 
-    next()
+    res.on 'finish', ->
+      responseStep.end() if responseStep
+      profiler.end() if profiler
 
-    responseStep.end() if responseStep
-    profiler.end() if profiler
+    next()
