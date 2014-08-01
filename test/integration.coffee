@@ -7,8 +7,7 @@ express = require 'express'
 request = require 'superagent'
 http = require 'http'
 
-tinyprofiler = require '../src'
-middleware = require '../src/middleware'
+tinyprofiler = require '../src/middleware'
 
 describe "a sync profiled request", ->
   options = profileResponse: no
@@ -16,8 +15,8 @@ describe "a sync profiled request", ->
 
   it "stores the profile", ->
     app = express()
-    app.use '/tp', middleware.resource profiler, options
-    app.use middleware.profiling profiler, options
+    app.use tinyprofiler.middleware.resource profiler, options
+    app.use tinyprofiler.middleware.profiling profiler, options
     app.get '/', (req, res) ->
       req.profiler.stepSync 'root', (step) ->
         step.stepSync 'send', ->
