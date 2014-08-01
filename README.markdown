@@ -11,6 +11,7 @@ strongly influenced by [MiniProfiler][0]
     * [data structure](#data-structure)
     * [options](#options)
     * [api methods](#api-methods)
+    * [events](#events)
     * [express middleware](#express-middleware)
 
 introduction
@@ -30,7 +31,8 @@ If you have node.js and npm set up, install with:
 
 Mount `profiler.middleware` as the first middleware on your stack.
 If you'd also like to view the profiler results in the browser, take
-a look at [tinyprofiler-client][1].
+a look at [tinyprofiler-client][1].  See the `example` folder for more
+information.
 
 faq
 ---
@@ -148,6 +150,10 @@ do we automatically profile the server response?
 
 #### client options ####
 
+##### maxProfiles - `20` #####
+
+the maximum number of old profiles to hold on to.
+
 ##### monkeyPatch - `true` #####
 
 do we automatically monkey patch the XHR object?
@@ -160,6 +166,14 @@ do we automatically profile each XHR request?
 
 *soon*
 
+### events ###
+
+TinyProfiler extends [EventEmitter2][2] to provide status updates to
+any listeners you may have.  TinyProfiler emits two events: `update`
+and `complete`.  `update` is emitted any time there is new step timing
+information, and `complete` is emitted after each completed request.
+Both are supplied with the relevant request profiler object.
+
 ### express middleware ###
 
 *forthcoming*
@@ -168,3 +182,4 @@ do we automatically profile each XHR request?
 
 [0]: https://github.com/MiniProfiler
 [1]: https://github.com/couchand/tinyprofiler-client
+[2]: https://github.com/asyncly/EventEmitter2
