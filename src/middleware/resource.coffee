@@ -2,6 +2,10 @@
 
 {parse} = require 'url'
 pathMatch = require 'path-match'
+xtend = require 'xtend'
+
+defaults =
+  path: 'tp'
 
 match = pathMatch
   sensitive: no
@@ -13,8 +17,10 @@ route = (path, fn) ->
   handle: fn
 
 module.exports = (tp, opts) ->
+  options = xtend {}, defaults, opts
+
   routes = [
-    route '/:id', (req, res, params) ->
+    route "/#{options.path}/:id", (req, res, params) ->
       result = tp.getById params.id
       return res.send 404 unless result
       res.send 200, result

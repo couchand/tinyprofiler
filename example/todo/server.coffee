@@ -10,7 +10,7 @@ api = require './api'
 server = express()
 profiler = tp()
 
-server.use '/tp', middleware.resource profiler
+server.use middleware.resource profiler
 server.use middleware.profiling profiler
 server.use app()
 server.use '/api', api()
