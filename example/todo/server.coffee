@@ -1,8 +1,7 @@
 # to do example app
 
 express = require 'express'
-tp = require '../../lib'
-middleware = require '../../lib/middleware'
+tp = require '../../lib/middleware'
 
 app = require './app'
 api = require './api'
@@ -10,8 +9,8 @@ api = require './api'
 server = express()
 profiler = tp()
 
-server.use middleware.resource profiler
-server.use middleware.profiling profiler
+server.use tp.middleware.resource profiler
+server.use tp.middleware.profiling profiler
 server.use app()
 server.use '/api', api()
 

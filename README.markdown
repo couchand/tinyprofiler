@@ -29,10 +29,10 @@ If you have node.js and npm set up, install with:
 > npm install --save tinyprofiler
 ```
 
-Mount `profiler.middleware` as the first middleware on your stack.
-If you'd also like to view the profiler results in the browser, take
-a look at [tinyprofiler-client][1].  See the `example` folder for more
-information.
+Mount `tp.middleware.resource` and `tp.middleware.profiling` as the
+first middlewares on your stack.  If you'd also like to view the results
+in the browser, take a look at [tinyprofiler-client][1].  See the
+`example` folder for more information.
 
 faq
 ---
