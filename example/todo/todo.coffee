@@ -20,7 +20,6 @@ module.exports = app = ->
   # use tinyprofiler-react to render client markup
   renderProfiler = (profile) ->
     profile.stepSync "render profiler", ->
-      console.log JSON.stringify profiles.getRequests()
       ui.renderElement profiles, document.getElementById 'tp'
 
   # render the list of todos
@@ -96,7 +95,6 @@ module.exports = app = ->
         step.end()
         return console.error err if err
         items = res.body
-        console.log items
         cb()
 
   # add a new todo
