@@ -2,7 +2,6 @@
 
 {EventEmitter2} = require 'eventemitter2'
 
-middleware = require './middleware'
 RequestProfiler = require './request-profiler'
 
 class TinyProfiler extends EventEmitter2
