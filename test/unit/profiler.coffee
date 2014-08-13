@@ -42,6 +42,18 @@ describe 'Profiler', ->
       profile._length.should.be.at.least start
       profile._length.should.be.at.most stop
 
+  describe 'isDone', ->
+    it 'returns false while profiling', ->
+      profile = new tinyprofiler.Profiler()
+
+      profile.isDone().should.be.false
+
+    it 'returns true after profiling complete', ->
+      profile = new tinyprofiler.Profiler()
+      profile.end()
+
+      profile.isDone().should.be.true
+
   describe 'step', ->
     it 'returns a Profiler', ->
       parent = new tinyprofiler.Profiler()

@@ -15,6 +15,9 @@ class Profiler extends EventEmitter2
     @_length = diff @_baseline
     @emit 'end'
 
+  isDone: ->
+    @_length?
+
   step: (name, details, cb) ->
     if typeof name is 'function'
       cb = name
