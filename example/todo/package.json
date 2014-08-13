@@ -11,8 +11,8 @@
   "dependencies": {
     "express": "~4.4.5",
     "superagent": "~0.18.0",
-    "tinyprofiler-client": "~0.0.1",
-    "tinyprofiler-react": "~0.0.0"
+    "tinyprofiler-client": "~0.0.4",
+    "tinyprofiler-react": "~0.0.1"
   },
   "devDependencies": {
     "browserify": "~4.2.0",
