@@ -1,6 +1,6 @@
 {
   "name": "tinyprofiler",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Andrew Couch <tinyprofiler@andrewcou.ch>",
   "description": "A minimal isomorphic JavaScript profiler.",
   "repository": "https://github.com/couchand/tinyprofiler.git",
