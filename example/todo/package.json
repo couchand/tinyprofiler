@@ -6,16 +6,17 @@
   "license": "MIT",
   "main": "server.js",
   "scripts": {
-    "build": "./node_modules/browserify/bin/cmd.js client.coffee -t coffeeify --extension '.coffee' > client.js"
+    "build": "./node_modules/browserify/bin/cmd.js client.coffee -t coffeeify --extension '.coffee' > client.js",
+    "start": "npm run build && coffee server.coffee"
   },
   "dependencies": {
-    "express": "~4.4.5",
-    "superagent": "~0.18.0",
+    "express": "^4.14",
+    "superagent": "^2.2",
     "tinyprofiler-client": "~0.0.4",
     "tinyprofiler-react": "~0.0.1"
   },
   "devDependencies": {
-    "browserify": "~4.2.0",
-    "coffeeify": "~0.6.0"
+    "browserify": "^13.1",
+    "coffeeify": "^2"
   }
 }
