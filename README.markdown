@@ -13,6 +13,7 @@ strongly influenced by [MiniProfiler][0]
     * [api methods](#api-methods)
     * [events](#events)
     * [express middleware](#express-middleware)
+  * [license](#license)
 
 introduction
 ------------
@@ -177,6 +178,11 @@ Both are supplied with the relevant request profiler object.
 ### express middleware ###
 
 *forthcoming*
+
+license
+-------
+
+MIT: [https://couch.mit-license.org/](https://couch.mit-license.org/)
 
 ##### ╭╮☲☲☲╭╮ #####
 
