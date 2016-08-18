@@ -22,10 +22,10 @@ module.exports = (tp, opts) ->
   routes = [
     route "/#{options.path}/:id", (req, res, params) ->
       result = tp.getById params.id
-      return res.send 404 unless result
+      return res.sendStatus 404 unless result
 
       complete = ->
-        res.send 200, result
+        res.send result
 
       if result.isDone()
         complete()

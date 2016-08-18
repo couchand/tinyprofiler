@@ -31,9 +31,9 @@ module.exports = ->
       result = no
       find = p.step 'find'
       for todo in todos when todo.id is +req.params.id
-        return res.send 500 if result
+        return res.sendStatus 500 if result
         result = todo
-      return res.send 404 unless result
+      return res.sendStatus 404 unless result
       find.end()
       p.stepSync 'send', -> res.send result
 
@@ -41,21 +41,21 @@ module.exports = ->
     req.profiler.stepSync 'todo update', ->
       result = no
       for todo in todos when todo.id is +req.params.id
-        return res.send 500 if result
+        return res.sendStatus 500 if result
         result = todo
-      return res.send 404 unless result
+      return res.sendStatus 404 unless result
       for key, prop of req.body when key isnt 'id'
         result[key] = prop
-      res.send 200
+      res.sendStatus 200
 
   api.delete '/todos/:id', (req, res) ->
     req.profiler.stepSync 'todo delete', ->
       result = no
       for i, todo of todos when todo.id is +req.params.id
-        return res.send 500 if result
+        return res.sendStatus 500 if result
         result = i
-      return res.send 404 unless result
+      return res.sendStatus 404 unless result
       todos.splice result, 1
-      res.send 200
+      res.sendStatus 200
 
   api

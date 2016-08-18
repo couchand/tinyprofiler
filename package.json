@@ -12,17 +12,18 @@
     "server"
   ],
   "dependencies": {
-    "browser-process-hrtime": "0.0.2",
-    "eventemitter2": "~0.4.14",
-    "on-headers": "0.0.0",
-    "path-match": "~1.1.1",
-    "xtend": "~3.0.0"
+    "browser-process-hrtime": "0.1.2",
+    "eventemitter2": "^2",
+    "on-headers": "^1",
+    "path-match": "^1.2",
+    "xtend": "^4"
   },
   "devDependencies": {
-    "body-parser": "~1.4.3",
-    "chai": "~1.9.1",
-    "express": "~4.4.4",
-    "mocha": "~1.18.2",
-    "superagent": "~0.18.1"
+    "body-parser": "^1.15",
+    "chai": "^3",
+    "coffee-script": "^1.10",
+    "express": "^4.14",
+    "mocha": "^3",
+    "superagent": "^2.2"
   }
 }

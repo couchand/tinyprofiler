@@ -22,10 +22,10 @@ describe "a sync profiled request", ->
         step.stepSync 'send', ->
           res.send 'foobar'
     server = http.createServer app
-      .listen 77637
+      .listen 57637
 
     start = new Date().toISOString()
-    request 'http://localhost:77637', (res) ->
+    request 'http://localhost:57637', (res) ->
       finish = new Date().toISOString()
 
       ids = JSON.parse res.headers["x-tinyprofiler-ids"]
